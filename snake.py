@@ -86,6 +86,66 @@ class SnakeNN:
                     #self.weights_ho[i][j] = sum_in_range(self.weights_ho[i][j], random.uniform(-0.1, 0.1))
                     self.weights_ho[i][j] = random.random()
 
+class SnakeNN_one_layer:
+    def __init__(self, input_size, hidden_size):
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.input_nodes = [[0 for i in range(input_size)] for x in range(input_size)]
+        self.hidden_nodes_1 = [[0 for i in range(hidden_size)] for x in range(hidden_size)]
+        self.output_nodes = [0,0,0,0]
+        self.weights_ih = []
+        self.weights_ho = []
+        self.mutation_rate = 0.1
+
+    def relu(self, x):
+        return max(0, x)
+
+    def softmax(self, input):
+        return [math.exp(x) / sum([math.exp(x) for x in input]) for x in input]
+
+    def tanh(self, x):
+        return math.tanh(x)
+    
+    def preparation(self):
+        for i in range(self.input_size):
+            self.weights_ih.append([])
+            for j in range(self.hidden_size):
+                self.weights_ih[i].append(random.random())
+        
+        for i in range(self.hidden_size**2):
+            self.weights_ho.append([])
+            for j in range(4):
+                self.weights_ho[i].append(random.random())   
+
+    def feedforward(self, inputs):
+        for i in range(self.input_size):
+            for j in range(self.input_size):
+                self.input_nodes[i][j] = inputs[i][j]
+        for i in range(self.hidden_size):
+            for j in range(self.hidden_size):
+                self.hidden_nodes_1[i][j] = self.relu(sum([self.input_nodes[i][k] * self.weights_ih[k][j] for k in range(self.input_size)]))
+        # weights ho is 4x9
+        # hidden nodes 2 is 9x1
+        hn_to_vector = [self.hidden_nodes_1[i][j] for i in range(self.hidden_size) for j in range(self.hidden_size)]
+        #print(hn_to_vector)
+        self.output_nodes = self.softmax([sum([hn_to_vector[i] * self.weights_ho[i][j] for i in range(self.hidden_size**2)]) for j in range(4)])
+
+        # use argmax to get the index of the highest value in the output_nodes list
+        return self.output_nodes.index(max(self.output_nodes))
+
+    def mutate(self):
+        for i in range(self.input_size):
+            for j in range(self.hidden_size):
+                if random.random() < self.mutation_rate:
+                    #self.weights_ih[i][j] = sum_in_range(self.weights_ih[i][j], random.uniform(-0.1, 0.1))
+                    self.weights_ih[i][j] = random.random()
+        
+        for i in range(self.hidden_size):
+            for j in range(4):
+                if random.random() < self.mutation_rate:
+                    #self.weights_ho[i][j] = sum_in_range(self.weights_ho[i][j], random.uniform(-0.1, 0.1))
+                    self.weights_ho[i][j] = random.random()
+
 
 class Snake:
 

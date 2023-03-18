@@ -1,4 +1,4 @@
-from snake import Snake, SnakeNN
+from snake import Snake, SnakeNN, SnakeNN_one_layer
 
 class Population:
     def __init__(self, load=False, path=None, gen=0, res_file="./result/result.txt"):
@@ -6,7 +6,7 @@ class Population:
         self.gen = 0
         self.result = res_file
         if load:
-            self.best_snake = Snake(SnakeNN(5, 3), 0)
+            self.best_snake = Snake(SnakeNN_one_layer(5, 3), 0)
             self.best_snake.nn.weights_ih, self.best_snake.nn.weights_hh, self.best_snake.nn.weights_ho = self.load_best_snake_from_gen(gen,path)
         else:
             self.best_snake = None
@@ -15,7 +15,7 @@ class Population:
 
     def create_population(self, size):
         for i in range(size):
-            self.snakes.append(Snake(SnakeNN(5, 3), i))
+            self.snakes.append(Snake(SnakeNN_one_layer(5, 3), i))
             self.snakes[i].nn.preparation()
 
         print('Population created')
