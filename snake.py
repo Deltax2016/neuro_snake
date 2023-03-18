@@ -153,10 +153,10 @@ class Snake:
         self.nn = nn
         self.x = 10
         self.y = 10
-        self.direction = 0
-        self.body = []
+        self.direction = random.randint(0, 4)
+        self.body = [(self.x, self.y+1), (self.x, self.y + 2), (self.x, self.y + 3)]
         self.alive = True
-        self.fitness = 0
+        self.fitness = 3
         self.score = 0.0
         self.world_size = 100
         self.age = 0
@@ -184,7 +184,7 @@ class Snake:
 
         try:
             if grid.map[self.y][self.x] == "f":
-                self.score += 16
+                self.score += 15
                 self.fitness += 1
                 self.feeded = True
                 grid.map[self.y][self.x] = " "

@@ -3,7 +3,7 @@ import random
 import pygame
 import sys
 import time
-from population import Population
+from population import Population, PopulationOneLayer
 
 result_file = "result.txt"
     
@@ -76,10 +76,10 @@ class Game:
         self.size = size
         self.grids = []
         if load:
-            self.population = Population(load=True,path="./results/results.txt", gen=0, res_file=result_file)
+            self.population = PopulationOneLayer(load=True,path="./results/results_1679173828.txt", gen=0, res_file=result_file)
             self.population.create_from_saved(size)
         else:
-            self.population = Population(res_file=result_file)
+            self.population = PopulationOneLayer(res_file=result_file)
             self.population.create_population(size)
         
         self.screen = pygame.display.set_mode(((width) * 8 * 6 + 8, height * 8 * 4 + 50))
@@ -126,5 +126,5 @@ if __name__ == "__main__":
     result_file = f"./results/results_{now}.txt"
     with open(result_file, "w") as f:
         f.write("{}")
-    game = Game(30, 30, 24, result_file = result_file)
+    game = Game(30, 30, 24,load=True, result_file = result_file)
     game.run()
