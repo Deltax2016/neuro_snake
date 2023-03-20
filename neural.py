@@ -76,7 +76,7 @@ class Game:
         self.size = size
         self.grids = []
         if load:
-            self.population = PopulationOneLayer(load=True,path="./results/results_1679173828.txt", gen=0, res_file=result_file)
+            self.population = PopulationOneLayer(load=True,path="results_1679178498.txt", gen=0, res_file=result_file)
             self.population.create_from_saved(size)
         else:
             self.population = PopulationOneLayer(res_file=result_file)
@@ -118,7 +118,7 @@ class Game:
                 text = font.render("Best score: " + str(self.population.total_best_score), True, (0, 0, 0))
                 self.screen.blit(text, (300, self.height * 8 * 4 + 10))
                 pygame.display.update()
-                self.clock.tick(600)
+                self.clock.tick(10)
 
 if __name__ == "__main__":
     # now is timestamp in seconds

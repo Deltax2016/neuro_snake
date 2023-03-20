@@ -21,7 +21,7 @@ class SnakeNN:
         self.weights_ih = []
         self.weights_hh = []
         self.weights_ho = []
-        self.mutation_rate = 0.1
+        self.mutation_rate = 0.2
 
     def relu(self, x):
         return max(0, x)
@@ -71,20 +71,20 @@ class SnakeNN:
         for i in range(self.input_size):
             for j in range(self.hidden_size):
                 if random.random() < self.mutation_rate:
-                    #self.weights_ih[i][j] = sum_in_range(self.weights_ih[i][j], random.uniform(-0.1, 0.1))
-                    self.weights_ih[i][j] = random.random()
+                    self.weights_ih[i][j] = sum_in_range(self.weights_ih[i][j], random.uniform(-0.1, 0.1))
+                    #self.weights_ih[i][j] = random.random()
         
         for i in range(self.hidden_size):
             for j in range(self.hidden_size):
                 if random.random() < self.mutation_rate:
-                    #self.weights_hh[i][j] = sum_in_range(self.weights_hh[i][j], random.uniform(-0.1, 0.1))
-                    self.weights_hh[i][j] = random.random()
+                    self.weights_hh[i][j] = sum_in_range(self.weights_hh[i][j], random.uniform(-0.1, 0.1))
+                    #self.weights_hh[i][j] = random.random()
         
         for i in range(self.hidden_size):
             for j in range(4):
                 if random.random() < self.mutation_rate:
-                    #self.weights_ho[i][j] = sum_in_range(self.weights_ho[i][j], random.uniform(-0.1, 0.1))
-                    self.weights_ho[i][j] = random.random()
+                    self.weights_ho[i][j] = sum_in_range(self.weights_ho[i][j], random.uniform(-0.1, 0.1))
+                    #self.weights_ho[i][j] = random.random()
 
 class SnakeNN_one_layer:
     def __init__(self, input_size, hidden_size):
@@ -137,14 +137,14 @@ class SnakeNN_one_layer:
         for i in range(self.input_size):
             for j in range(self.hidden_size):
                 if random.random() < self.mutation_rate:
-                    #self.weights_ih[i][j] = sum_in_range(self.weights_ih[i][j], random.uniform(-0.1, 0.1))
-                    self.weights_ih[i][j] = random.random()
+                    self.weights_ih[i][j] = sum_in_range(self.weights_ih[i][j], random.uniform(-0.02, 0.02))
+                    #self.weights_ih[i][j] = random.random()
         
         for i in range(self.hidden_size):
             for j in range(4):
                 if random.random() < self.mutation_rate:
-                    #self.weights_ho[i][j] = sum_in_range(self.weights_ho[i][j], random.uniform(-0.1, 0.1))
-                    self.weights_ho[i][j] = random.random()
+                    self.weights_ho[i][j] = sum_in_range(self.weights_ho[i][j], random.uniform(-0.02, 0.02))
+                    #self.weights_ho[i][j] = random.random()
 
 
 class Snake:

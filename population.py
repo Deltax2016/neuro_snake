@@ -5,6 +5,7 @@ class Population:
         self.snakes = []
         self.gen = 0
         self.result = res_file
+        self.total_best_snake = None
         if load:
             self.best_snake = Snake(SnakeNN(5, 3), 0)
             self.best_snake.nn.weights_ih, self.best_snake.nn.weights_hh, self.best_snake.nn.weights_ho = self.load_best_snake_from_gen(gen,path)
@@ -12,6 +13,7 @@ class Population:
             self.best_snake = None
         self.best_score = 0.0
         self.total_best_score = 0.0
+
 
     def create_population(self, size):
         for i in range(size):
@@ -30,9 +32,13 @@ class Population:
 
     def find_best_snake(self):
         for snake in self.snakes:
+            if snake.score > self.best_score:
+                self.best_score = snake.score
+                self.best_snake = snake
             if snake.score > self.total_best_score:
                 self.total_best_score = snake.score
-                self.best_snake = snake
+                self.total_best_snake = snake
+            
         print(f"Best score: {self.total_best_score}, Generation: {self.gen}")
 
     def update(self, grids):
@@ -126,9 +132,12 @@ class PopulationOneLayer:
 
     def find_best_snake(self):
         for snake in self.snakes:
+            if snake.score > self.best_score:
+                self.best_score = snake.score
+                self.best_snake = snake
             if snake.score > self.total_best_score:
                 self.total_best_score = snake.score
-                self.best_snake = snake
+                self.total_best_snake = snake
 
     def update(self, grids):
 
@@ -173,6 +182,7 @@ class PopulationOneLayer:
         '''
 
         data[0] = (self.best_snake.nn.weights_ih, self.best_snake.nn.weights_ho)
+        data[1] = (self.total_best_snake.nn.weights_ih, self.total_best_snake.nn.weights_ho)
         with open(self.result, "w") as f:
                 f.write(str(data))
     
