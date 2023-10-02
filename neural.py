@@ -121,7 +121,7 @@ class Game:
                 self.clock.tick(10)
 
 if __name__ == "__main__":
-    # now is timestamp in seconds
+    # now the timestamp is in seconds
     now = int(time.time())
     result_file = f"./results/results_{now}.txt"
     with open(result_file, "w") as f:
